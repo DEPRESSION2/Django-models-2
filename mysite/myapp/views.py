@@ -17,7 +17,19 @@ class ProductListView(LoginRequiredMixin, ListView):
     extra_context = {'create_form': ProductCreateForm()}
     paginate_by = 5
 
-   
+     def get_context_data(self, **kwargs):
+         context = super().get_context_data(**kwargs)
+         context['num_visits'] = self.request.session['num_visits']
+         return context
+  
+     def get(self, request, *args, **kwargs):
+         num_visits = request.session.get('num_visits', 0)
+         request.session['num_visits'] = num_visits + 1
+        if num_visits >= 4:
+          request.session['num_visits'] = 1
+        return super().get(request, *args, **kwargs)
+
+
 def index(request):
     return render(request, 'index.html')
 
@@ -55,3 +67,6 @@ class ProductUpdateView(LoginRequiredMixin, UpdateView):
     template_name = 'index.html'
     success_url = '/'
 
+
+ class Purchase(LoginRequiredMixin, CreateView):
+     model = Purchase

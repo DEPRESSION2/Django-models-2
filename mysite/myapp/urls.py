@@ -9,4 +9,6 @@ urlpatterns = [
     path('logout/', Logout.as_view(), name='logout'),
     path('product/create/', ProductCreateView.as_view(), name='product-create'),
     path('product/update/<int:pk>/', ProductUpdateView.as_view(), name='product-update'),
-   
+    path('product/purchase/<int:pk>/', Purchase.as_view(), name='purchase'),
+    path('product/purchases/<int:pk>/', Purchase.as_view(), name='purchase'),
+]

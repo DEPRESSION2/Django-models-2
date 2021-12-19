@@ -7,6 +7,8 @@ from django.contrib.auth.models import User
 from django.utils import timezone
 from django.utils.translation import gettext as _
 
+#User = get_user_model()
+# Create your models here.
 
 
 class Customer(AbstractUser):
@@ -33,19 +35,17 @@ class Product(models.Model):
         return self.title
 
 
-# class Purchase(models.Model):
-#     user = models.ForeignKey('Customer', on_delete=models.CASCADE)
-#     product = models.ForeignKey('Product', on_delete=models.CASCADE)
-#     object_id = models.PositiveIntegerField()
-#     qty = models.PositiveIntegerField(default=1)
-#     created = models.DateTimeField(auto_now_add=True)
-#
-#
-# class Return(models.Model):
-#     purchase = models.ForeignKey('Purchase', on_delete=models.CASCADE)
-#     created = models.DateTimeField(auto_now_add=True)
+ class Purchase(models.Model):
+     user = models.ForeignKey('Customer', on_delete=models.CASCADE)
+   product = models.ForeignKey('Product', on_delete=models.CASCADE)
+    object_id = models.PositiveIntegerField()
+    qty = models.PositiveIntegerField(default=1)
+     created = models.DateTimeField(auto_now_add=True)
 
 
+ class Return(models.Model):
+     purchase = models.ForeignKey('Purchase', on_delete=models.CASCADE)
+     created = models.DateTimeField(auto_now_add=True)
 
 
 
